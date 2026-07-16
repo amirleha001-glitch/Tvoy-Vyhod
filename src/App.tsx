@@ -308,10 +308,18 @@ export default function App() {
             Свободный выбор смен, выплаты каждую неделю, заказы рядом с домом и поддержка на каждом этапе.
           </motion.p>
 
+          <motion.p
+            variants={itemVariants}
+            className="mt-4 flex max-w-2xl items-start justify-center gap-2 text-xs leading-relaxed text-stone-500 sm:text-sm"
+          >
+            <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" aria-hidden="true" />
+            <span>Набор идёт по Астане, Алматы, Шымкент, Караганда, Актобе, Актау, Костанай, Павлодар, Атырау</span>
+          </motion.p>
+
           {/* Single Action Point - Massive Premium Tactile Button */}
           <motion.div 
             variants={itemVariants}
-            className="mt-10 mb-6 w-full flex flex-col items-center gap-4"
+            className="mt-8 mb-6 w-full flex flex-col items-center gap-4"
           >
             <a
               href={PRIMARY_LINK}
