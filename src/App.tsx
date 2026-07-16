@@ -82,7 +82,7 @@ export default function App() {
     }
   }, [chatMessages, isChatOpen]);
 
-  // Send message to server-side Gemini endpoint
+    // Send message to server-side Gemini endpoint
   const handleSendMessage = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     if (!chatInput.trim() || isChatLoading) return;
@@ -97,7 +97,7 @@ export default function App() {
         ...chatMessages,
         { role: "user" as const, content: userMessage }
       ].map(msg => ({
-        role: msg.role === 'user' ? 'user' : 'model',
+        role: msg.role === 'user' ? 'user' : 'assistant',
         content: msg.content
       }));
 
@@ -107,11 +107,12 @@ export default function App() {
         body: JSON.stringify({ messages: formattedMessages }),
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        throw new Error("Failed to get response");
+        throw new Error(data.error || "Failed to get response");
       }
 
-      const data = await response.json();
       setChatMessages(prev => [...prev, { role: "assistant", content: data.text }]);
     } catch (err: any) {
       console.error(err);
@@ -123,6 +124,7 @@ export default function App() {
       setIsChatLoading(false);
     }
   };
+
 
   // Predefined prompt helper for quick chat queries
   const handleQuickQuestion = (question: string) => {
