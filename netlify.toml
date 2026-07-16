@@ -1,0 +1,4 @@
+[[redirects]]
+  from = "/api/*"
+  status = 200
+  to = "/.netlify/functions/chat"
