@@ -1,0 +1,6 @@
+{
+  "name": "Твой Выход",
+  "description": "Сервис подключения курьеров. Твой выход на стабильный доход. Рекрутинговая кампания.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
