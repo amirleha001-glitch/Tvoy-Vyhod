@@ -56,10 +56,10 @@ export async function handler(event, context) {
       parts: [{ text: `СИСТЕМНАЯ ИНСТРУКЦИЯ (ОБЯЗАТЕЛЬНО К ИСПОЛНЕНИЮ): ${systemInstruction}` }]
     });
 
-    // ИСПОЛЬЗУЕМ ВЕРСИЮ v1beta С УКАЗАНИЕМ LATEST СУФФИКСА
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
+    // ИСПОЛЬЗУЕМ НОВЕЙШУЮ МОДЕЛЬ GEMINI 3.5 FLASH
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${apiKey}`;
     
-    console.log("Отправляем запрос к Google Gemini API...");
+    console.log("Отправляем запрос к Google Gemini API (модель: gemini-3.5-flash)...");
     
     const response = await fetch(apiUrl, {
       method: "POST",
