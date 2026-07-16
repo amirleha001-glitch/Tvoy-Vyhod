@@ -1,5 +1,4 @@
 export async function handler(event, context) {
-  // Разрешаем только POST-запросы
   if (event.httpMethod !== "POST") {
     return {
       statusCode: 405,
@@ -11,7 +10,7 @@ export async function handler(event, context) {
     console.log("Получен запрос на бэкенд. Тело запроса:", event.body);
 
     if (!event.body) {
-      throw new Error("Тело запроса пустое (empty body)");
+      throw new Error("Тело запроса пустое");
     }
 
     const { messages } = JSON.parse(event.body);
@@ -19,7 +18,7 @@ export async function handler(event, context) {
     if (!messages || !Array.isArray(messages) || messages.length === 0) {
       return {
         statusCode: 400,
-        body: JSON.stringify({ error: "Массив сообщений (messages) пуст или невалиден" }),
+        body: JSON.stringify({ error: "Массив сообщений пуст" }),
       };
     }
 
@@ -38,9 +37,9 @@ export async function handler(event, context) {
 Стиль общения:
 1. Придерживайтесь ультра-минималистичного, уважительного и профессионального стиля. Никакого сленга, фамильярности или навязчивых лозунгов. Отвечайте уверенно, тепло и по делу.
 2. Основные условия для Казахстана:
-   - Доход: до 15 000 ₸ в день. Выплаты еженедельные напрямую на карту.
-   - График: свободный (от 2 до 12 часов в день, можно совмещать).
-   - Оформление: быстрое, занимает около 15-30 минут. Требуется пройти легкий онлайн-инструктаж и забрать термосумку в офисе.
+   - Доход: до 15 000 ₸ в день. Еженедельные выплаты напрямую на карту.
+   - График: свободный.
+   - Оформление: заполнение данных быстрое, занимает около минуты. После нужно записаться в Хаб и пройти легкий инструктаж и забрать термосумку.
    - Способ доставки: пеший, велосипед, самокат или авто.
 3. Отвечайте на русском языке.
 4. Всегда рекомендуйте нажать главную кнопку «Начать оформление» на странице.`;
@@ -57,7 +56,8 @@ export async function handler(event, context) {
       parts: [{ text: `СИСТЕМНАЯ ИНСТРУКЦИЯ (ОБЯЗАТЕЛЬНО К ИСПОЛНЕНИЮ): ${systemInstruction}` }]
     });
 
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+    // ИСПОЛЬЗУЕМ СТАБИЛЬНУЮ ВЕРСИЮ v1 И МОДЕЛЬ gemini-1.5-flash
+    const apiUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
     
     console.log("Отправляем запрос к Google Gemini API...");
     
@@ -93,7 +93,7 @@ export async function handler(event, context) {
       statusCode: 200,
       headers: {
         "Content-Type": "application/json; charset=utf-8",
-        "Access-Control-Allow-Origin": "*", // На всякий случай разрешаем CORS
+        "Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify({ text: reply }),
     };
